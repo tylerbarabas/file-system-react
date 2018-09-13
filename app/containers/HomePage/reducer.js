@@ -19,7 +19,6 @@ const initialState = fromJS({
 });
 
 function homeReducer(state = initialState, action) {
-  console.log('homeReducer', action, state.get('workingPath'));
   switch (action.type) {
     case CHANGE_WORKINGPATH:
       return state.set('workingPath', action.path);
