@@ -3,7 +3,9 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const fs = require('fs');
-const bodyParser = require('body-parser');
+const fileSystem = require('./fileSystem');
+console.log('fileSystem', fileSystem);
+
 
 function createWebpackMiddleware(compiler, publicPath) {
   return webpackDevMiddleware(compiler, {
@@ -17,13 +19,6 @@ function createWebpackMiddleware(compiler, publicPath) {
 module.exports = function addDevMiddlewares(app, webpackConfig) {
   const compiler = webpack(webpackConfig);
   const middleware = createWebpackMiddleware(compiler, webpackConfig.output.publicPath);
-
-
-  // parse application/x-www-form-urlencoded
-  app.use(bodyParser.urlencoded({ extended: false }))
-
-  // parse application/json
-  app.use(bodyParser.json())
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
@@ -41,16 +36,4 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
       }
     });
   });
-
-  const fileSystemRoot = 
-  app.post('/file-system', (req, res) => {
-    const relpath = `/data${req.body.path}`;
-    fs.readdir( path.join(compiler.outputPath, relpath), (error, items)=>{
-      console.log('READ DIR', items);
-      res.send(JSON.stringify({
-        files: [],
-        directories: []
-      }));
-    });
-  })
 };
