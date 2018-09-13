@@ -44,9 +44,7 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
 
   const fileSystemRoot = 
   app.post('/file-system', (req, res) => {
-    const relpath = req.body.path;
-    console.log('compiler', compiler);
-    console.log('look', path.join(compiler.outputPath, relpath));
+    const relpath = `/data${req.body.path}`;
     fs.readdir( path.join(compiler.outputPath, relpath), (error, items)=>{
       console.log('READ DIR', items);
       res.send(JSON.stringify({

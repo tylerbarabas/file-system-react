@@ -4,6 +4,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 process.noDeprecation = true;
 
@@ -94,7 +95,9 @@ module.exports = (options) => ({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
       },
-    })
+    }),
+
+    new CopyWebpackPlugin([{ from: 'data', to: 'data' }])
   ]),
   resolve: {
     modules: ['app', 'node_modules'],
