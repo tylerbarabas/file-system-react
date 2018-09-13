@@ -30,6 +30,7 @@ export default class HomePage extends React.Component { // eslint-disable-line r
     if (newPath.substr(0,2) === '//') newPath = newPath.substr(1,newPath.length-1);
     if (newPath.substr(0,1) !== '/') newPath = '/'+newPath;
     if (type === 'directory') this.loadPath( newPath );
+    else window.open('/file-system?path='+newPath);
   }
 
   loadPath( path = '/' ) {

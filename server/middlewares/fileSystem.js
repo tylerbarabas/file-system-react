@@ -20,3 +20,9 @@ exports.getFilesInPath = (req, res) => {
       res.send(JSON.stringify(dir));
     });
 };
+
+exports.getFile = (req, res) => {
+  const querypath = req.query.path;
+  const file = path.join(`${appDir}/data`, querypath);
+  res.sendFile(file);
+};
