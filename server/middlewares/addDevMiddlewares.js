@@ -34,6 +34,9 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
   });
 
   app.post('/file-system', (req, res) => {
-    res.send(JSON.stringify({message: 'File system EP is working'}));
+    res.send(JSON.stringify({
+        files: [],
+        directories: []
+    }));
   })
 };
