@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import ReposList from 'components/ReposList';
 import FileViewer from 'components/FileViewer';
+import upIcon from 'images/up-icon.png';
 import './style.scss';
 
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -26,12 +27,22 @@ export default class HomePage extends React.Component { // eslint-disable-line r
 
   onItemDblClicked(e){
     let type = e.currentTarget.className.split(' selected')[0];
-    if (type === 'directory') this.loadPath(e.currentTarget.innerText);
+    if (type === 'directory') this.loadPath(`/${e.currentTarget.innerText}`);
   }
 
   loadPath( path = '/' ) {
     this.props.changeWorkingPath( path );
     this.props.loadWorkingPath( path );
+  }
+
+  upButtonClicked(){
+    let newPath = '/';
+    let arr = this.props.workingPath.split('/');
+    arr.shift();
+    console.log('arr', arr);
+    if (arr.length > 1) newPath = '/'+arr.pop().join('/');
+    console.log('upButtonClicked', newPath);
+    this.loadPath( newPath );
   }
 
   render() {
@@ -43,6 +54,8 @@ export default class HomePage extends React.Component { // eslint-disable-line r
       };
     }
 
+    let hidden  = (workingPath === '/')?'hidden':'';
+
     return (
       <article>
         <Helmet>
@@ -51,6 +64,9 @@ export default class HomePage extends React.Component { // eslint-disable-line r
         <div className="home-page">
           <section className="top-bar centered">
             Working path: {workingPath}
+            <div className={'up-button ' + hidden} onClick={this.upButtonClicked.bind(this)}>
+              <img src={upIcon} />
+            </div>
           </section>
           <FileViewer className="file-viewer" files={fileSystemData.files} directories={fileSystemData.directories} click={this.onItemClicked.bind(this)} dblClick={this.onItemDblClicked.bind(this)} />
         </div>
