@@ -9,12 +9,21 @@ import { workingPathLoaded, workingPathLoadingError, reposLoaded, repoLoadingErr
 import request from 'utils/request';
 import { makeSelectUsername, makeSelectWorkingPath } from 'containers/HomePage/selectors';
 
-export function* getFiles(){
+export function* getFiles( action ){
   const workingPath = yield select(makeSelectWorkingPath);
-  const requestURL = '/file-system';
+  const requestURL = `/file-system?path=${action.path}`;
+  const options = {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify({
+      path: action.path
+    })
+  };
 
   try {
-    const files = yield call(request, requestURL, {method: 'POST'});
+    const files = yield call(request, requestURL, options);
     yield put(workingPathLoaded(files, workingPath)); 
   } catch (err) {
     yield put(workingPathLoadingError(err));

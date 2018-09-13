@@ -24,9 +24,10 @@ import {
   LOAD_REPOS_ERROR,
 } from './constants';
 
-export function loadWorkingPath(){
+export function loadWorkingPath(path){
   return {
-    type: LOAD_WORKINGPATH
+    type: LOAD_WORKINGPATH,
+    path
   };
 }
 
