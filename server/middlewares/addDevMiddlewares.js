@@ -4,7 +4,6 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const fs = require('fs');
 const fileSystem = require('./fileSystem');
-console.log('fileSystem', fileSystem);
 
 
 function createWebpackMiddleware(compiler, publicPath) {
