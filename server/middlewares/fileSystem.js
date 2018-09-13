@@ -10,6 +10,9 @@ exports.getFilesInPath = (req, res) => {
         directories: []
       };
 
+      console.log('error', error);
+      console.log('items', items);
+
       for (let i=0;i<items.length;i+=1){
         let item = items[i];
         let isDirectory = fs.lstatSync(path.join(relpath, item)).isDirectory();

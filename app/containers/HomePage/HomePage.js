@@ -27,7 +27,10 @@ export default class HomePage extends React.Component { // eslint-disable-line r
 
   onItemDblClicked(e){
     let type = e.currentTarget.className.split(' selected')[0];
-    if (type === 'directory') this.loadPath(`/${e.currentTarget.innerText}`);
+    let newPath = `${this.props.workingPath}/${e.currentTarget.innerText}`;
+    if (newPath.substr(0,2) === '//') newPath = newPath.substr(1,newPath.length-1);
+    if (newPath.substr(0,1) !== '/') newPath = '/'+newPath;
+    if (type === 'directory') this.loadPath( newPath );
   }
 
   loadPath( path = '/' ) {
@@ -39,9 +42,11 @@ export default class HomePage extends React.Component { // eslint-disable-line r
     let newPath = '/';
     let arr = this.props.workingPath.split('/');
     arr.shift();
-    console.log('arr', arr);
-    if (arr.length > 1) newPath = '/'+arr.pop().join('/');
-    console.log('upButtonClicked', newPath);
+    if (arr.length > 1) {
+      arr.pop();
+      newPath = arr.join('/');
+    }
+    if (newPath.substr(0) !== '/') newPath = `/${newPath}`;
     this.loadPath( newPath );
   }
 
