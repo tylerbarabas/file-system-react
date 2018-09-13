@@ -22,12 +22,13 @@ export default class HomePage extends React.Component { // eslint-disable-line r
     return (
       <article>
         <Helmet>
-          <title>Home Page</title>
-          <meta name="description" content="A React.js Boilerplate application homepage" />
+          <title>File System</title>
         </Helmet>
         <div className="home-page">
-          <section className="centered">
-            {workingPath}  Hello test
+          <section className="top-bar centered">
+            Working path: {workingPath}
+          </section>
+          <section className="file-viewer centered">
           </section>
         </div>
       </article>
