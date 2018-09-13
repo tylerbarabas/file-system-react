@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import ReposList from 'components/ReposList';
 import FileViewer from 'components/FileViewer';
 import upIcon from 'images/up-icon.png';
 import './style.scss';
