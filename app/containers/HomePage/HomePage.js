@@ -13,8 +13,25 @@ import './style.scss';
 
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
-    this.props.changeWorkingPath('/');
-    this.props.loadWorkingPath('/');
+    this.loadPath();
+  }
+
+  onItemClicked(e){
+    let all = e.currentTarget.parentNode.children;
+    for (let i=0;i<all.length;i+=1) {
+      all[i].className = all[i].className.split(' selected')[0];
+    }
+    e.currentTarget.className += ' selected';
+  }
+
+  onItemDblClicked(e){
+    let type = e.currentTarget.className.split(' selected')[0];
+    if (type === 'directory') this.loadPath(e.currentTarget.innerText);
+  }
+
+  loadPath( path = '/' ) {
+    this.props.changeWorkingPath( path );
+    this.props.loadWorkingPath( path );
   }
 
   render() {
@@ -35,7 +52,7 @@ export default class HomePage extends React.Component { // eslint-disable-line r
           <section className="top-bar centered">
             Working path: {workingPath}
           </section>
-          <FileViewer className="file-viewer" files={fileSystemData.files} directories={fileSystemData.directories}/>
+          <FileViewer className="file-viewer" files={fileSystemData.files} directories={fileSystemData.directories} click={this.onItemClicked.bind(this)} dblClick={this.onItemDblClicked.bind(this)} />
         </div>
       </article>
     );

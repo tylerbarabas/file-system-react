@@ -1,15 +1,27 @@
 .file-viewer {
     padding: 20px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    text-align: center;
 
     .directory, .file{
       display: inline-block;
-      height: 100px;
-      width: 100px;
-      margin: 15px;
+      height: 150px;
+      width: 150px;
+      margin: 35px;
       text-align: center;
+      overflow: visible;
+      font-size: 12px;
+
+      &.selected {
+        outline: 1px solid blue;
+      }
 
       img {
-        height: calc(100% - 20px);
+        margin: 0 auto;
+        margin-top: 20px;
+        display: block;
+        height: calc(100% - 50px);
       }
     }
 }

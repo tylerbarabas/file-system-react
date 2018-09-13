@@ -8,7 +8,7 @@ const FileViewer = (props) => {
   let files = [];
   for (let i=0;i<props.files.length;i+=1){
     files.push(
-      <div className="file" key={i}>
+      <div className="file" key={i} onClick={props.click} onDoubleClick={props.dblClick}>
         <img src={FileIcon} />
         {props.files[i]}
       </div>
@@ -18,7 +18,7 @@ const FileViewer = (props) => {
   let directories = [];
   for (let i=0;i<props.directories.length;i+=1){
     directories.push(
-      <div className="directory" key={i}>
+      <div className="directory" key={i} onClick={props.click} onDoubleClick={props.dblClick}>
         <img src={FolderIcon} />
         {props.directories[i]}
       </div>
